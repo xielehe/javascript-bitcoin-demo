@@ -1,19 +1,13 @@
-
 const bitcoin = require('bitcoinjs-lib')
 const ecc = require('tiny-secp256k1')
-const {ECPairFactory} = require('ecpair')
+const { ECPairFactory } = require('ecpair')
 
 const ECPair = ECPairFactory(ecc);
 const TESTNET = bitcoin.networks.testnet;
 
-const keyPair = ECPair.fromWIF('cW6mrWmqmtiA7hE6EeMWKAmsGMPt8uAC6yWc6jum33upAgtLqMFf', TESTNET );
+const keyPair = ECPair.fromWIF('cW6mrWmqmtiA7hE6EeMWKAmsGMPt8uAC6yWc6jum33upAgtLqMFf', TESTNET);
 
-// const { address } = bitcoin.payments.p2pkh({
-//   pubkey: keyPair.publicKey,
-//   network: TESTNET,
-// });
-
-const psbt = new bitcoin.Psbt({network: TESTNET});
+const psbt = new bitcoin.Psbt({ network: TESTNET });
 
 psbt.addInput({
   hash: 'b3268399f9bc7a1f5181fbf21d13db6dbe8b96d1aefee26683771c93741aa0c6',
@@ -31,7 +25,7 @@ psbt.addOutput({
 
 psbt.signInput(0, keyPair);
 
-const validator = ( pubkey, msghash, signature ) => ECPair.fromPublicKey(pubkey).verify(msghash, signature);
+const validator = (pubkey, msghash, signature) => ECPair.fromPublicKey(pubkey).verify(msghash, signature);
 
 psbt.validateSignaturesOfInput(0, validator);
 psbt.finalizeAllInputs();
