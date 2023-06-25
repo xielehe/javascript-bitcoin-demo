@@ -8,7 +8,8 @@ const TESTNET = bitcoin.networks.testnet;
 const keyPair = ECPair.fromWIF('cW6mrWmqmtiA7hE6EeMWKAmsGMPt8uAC6yWc6jum33upAgtLqMFf', TESTNET);
 
 const psbt = new bitcoin.Psbt({ network: TESTNET });
-
+// pay-to-witness-pubkey-hash
+// p2wpkh
 psbt.addInput({
   hash: 'b3268399f9bc7a1f5181fbf21d13db6dbe8b96d1aefee26683771c93741aa0c6',
   index: 0,
